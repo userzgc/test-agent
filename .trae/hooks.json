@@ -1,0 +1,26 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "name": "auto-check-lessons-learned",
+        "enabled": true,
+        "command": "bash .trae/hooks/on-stop-check-lessons.sh"
+      }
+    ],
+    "PostToolUse": [
+      {
+        "name": "check-feishu-auth",
+        "enabled": false,
+        "matcher": "WebFetch",
+        "command": "bash .trae/hooks/post-tool-feishu-auth.sh"
+      }
+    ],
+    "SessionStart": [
+      {
+        "name": "load-project-context",
+        "enabled": true,
+        "command": "bash .trae/hooks/session-start.sh"
+      }
+    ]
+  }
+}

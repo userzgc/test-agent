@@ -1,0 +1,14 @@
+# 敏感文件（认证信息）
+.trae/settings/credentials.json
+*.env
+.env*
+
+# 临时文件
+*.tmp
+__pycache__/
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+*.swp
