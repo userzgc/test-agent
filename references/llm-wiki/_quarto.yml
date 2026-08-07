@@ -1,0 +1,49 @@
+project:
+  type: website
+  output-dir: _site
+  title: "Test Agent 知识库"
+  preview:
+    port: 4567
+    host: 0.0.0.0
+
+website:
+  title: "Test Agent 知识库"
+  sidebar:
+    style: "docked"
+    search: true
+    contents:
+      - section: "首页"
+        href: wiki/index.qmd
+      - section: "活动知识"
+        contents:
+          - wiki/activities/buy-a-gift-b.qmd
+          - wiki/activities/city-badge.qmd
+      - section: "测试规范"
+        contents:
+          - wiki/conventions/case-format.qmd
+      - section: "工具使用"
+        contents:
+          - wiki/confluence.qmd
+          - wiki/feishu.qmd
+          - wiki/xmind.qmd
+      - section: "架构经验"
+        contents:
+          - wiki/previous-agent-experience.qmd
+      - section: "Trae 文档"
+        contents:
+          - trae-docs/README.qmd
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    code-copy: true
+    highlight: tango
+
+# 排除大文件（pandoc 处理大表格会卡死）
+filters:
+  - lua/no-large-tables.lua
+
+metadata:
+  lang: zh-CN
