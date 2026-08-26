@@ -13,6 +13,12 @@
         "enabled": false,
         "matcher": "WebFetch",
         "command": "bash .trae/hooks/post-tool-feishu-auth.sh"
+      },
+      {
+        "name": "error-detect-lessons",
+        "enabled": true,
+        "matcher": "RunCommand",
+        "command": "bash .trae/hooks/post-tool-error-detect.sh"
       }
     ],
     "SessionStart": [

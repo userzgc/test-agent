@@ -20,6 +20,15 @@ if [ -f "docs/lessons-learned.md" ]; then
 fi
 echo ""
 
+# 记忆索引（最近 3 条业务口径 / 会话存档）
+# 作用：新会话开始就带上已沉淀的口径，避免重复问用户同样的问题
+if [ -f "docs/memory/index.md" ]; then
+  echo "[记忆索引] 已沉淀的业务口径（复用前先向用户确认是否仍有效）"
+  grep "^| 20" docs/memory/index.md 2>/dev/null | head -3 | awk -F'|' '{gsub(/^ +| +$/,"",$2); gsub(/^ +| +$/,"",$3); gsub(/^ +| +$/,"",$5); print "  - " $2 " | " $3 " | " $5}'
+  echo "  详见: docs/memory/index.md | 写入规则: .trae/skills/memory-keeping/SKILL.md"
+fi
+echo ""
+
 # 用例文件
 echo "[用例文件]"
 ls docs/test-cases/ 2>/dev/null | head -10

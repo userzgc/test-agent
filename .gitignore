@@ -1,5 +1,7 @@
 # 敏感文件（认证信息）
+config/credentials.json
 .trae/settings/credentials.json
+**/credentials.json
 *.env
 .env*
 
@@ -7,6 +9,9 @@
 *.tmp
 __pycache__/
 .DS_Store
+
+# Qoder 机器生成物（各自本机生成，不共享）
+.qoder/repowiki/
 
 # IDE
 .idea/

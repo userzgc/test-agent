@@ -15,10 +15,10 @@ description: "Use when operating external tools (Confluence/飞书/YAPI/蓝湖) 
 
 ### 凭据管理
 
-凭据存放在 `.trae/settings/credentials.json`（已被 .gitignore 过滤），**不要从记忆中取凭据，必须每次从文件读取**：
+凭据存放在 `config/credentials.json`（已被 .gitignore 过滤），**不要从记忆中取凭据，必须每次从文件读取**：
 
 ```json
-// .trae/settings/credentials.json 格式（不入 git）
+// config/credentials.json 格式（不入 git）
 {
   "confluence": {
     "baseUrl": "http://confluence.mxbc-code.com:8090",
@@ -32,16 +32,16 @@ description: "Use when operating external tools (Confluence/飞书/YAPI/蓝湖) 
 curl 中直接引用文件中的凭据：
 ```bash
 # 先读 credentials.json 取凭据
-USER=$(python3 -c "import json;print(json.load(open('.trae/settings/credentials.json'))['confluence']['username'])")
-PASS=$(python3 -c "import json;print(json.load(open('.trae/settings/credentials.json'))['confluence']['password'])")
+USER=$(python3 -c "import json;print(json.load(open('config/credentials.json'))['confluence']['username'])")
+PASS=$(python3 -c "import json;print(json.load(open('config/credentials.json'))['confluence']['password'])")
 curl -s -u "${USER}:${PASS}" ...
 ```
 
 ### 获取页面内容
 
 ```bash
-USER=$(python3 -c "import json;print(json.load(open('.trae/settings/credentials.json'))['confluence']['username'])")
-PASS=$(python3 -c "import json;print(json.load(open('.trae/settings/credentials.json'))['confluence']['password'])")
+USER=$(python3 -c "import json;print(json.load(open('config/credentials.json'))['confluence']['username'])")
+PASS=$(python3 -c "import json;print(json.load(open('config/credentials.json'))['confluence']['password'])")
 curl -s -u "${USER}:${PASS}" "http://confluence.mxbc-code.com:8090/rest/api/content/{pageId}?expand=body.storage" -o /tmp/confluence_page.json
 
 # 解析HTML为纯文本
@@ -60,7 +60,7 @@ print(text[:30000])
 遇到 401 Unauthorized 时**必须按以下流程处理，不能跳过**：
 
 1. **立即检测**：检查返回内容是否包含 `401` 或 `Unauthorized`
-2. **记录踩坑**：当场写入 `docs/lessons-learned.md`，不等 Stop Hook
+2. **记录踩坑**：当场用 `UpdateMemory` 落长期记忆（`common_pitfalls_experience`），不要只写 md 文件
 3. **诊断根因**：
    - Basic Auth 401 → 尝试表单登录 `/dologin.action`
    - 表单登录返回 CAPTCHA → **Confluence 启用了验证码，脚本无法自动登录**
@@ -114,7 +114,7 @@ lark-cli sheet table-update --token {token} --sheet {sheet_id} --data /tmp/data.
 
 ```bash
 # 解析 YAPI 接口分类信息
-python3 .trae/scripts/parse_yapi.py <input.md> [--output <out.json>]
+python3 scripts/parse_yapi.py <input.md> [--output <out.json>]
 ```
 
 ## 蓝湖 / 墨刀 / 设计稿
@@ -122,42 +122,47 @@ python3 .trae/scripts/parse_yapi.py <input.md> [--output <out.json>]
 - 设计稿类输入统一由 `design-extractor` agent 收口处理
 - 详见 `design-extraction` skill（`#design-extraction` 激活）
 
-## 脚本工具（.trae/scripts/）
+## 脚本工具（scripts/）
 
 所有工具已抽取为独立脚本，直接命令行调用：
 
 | 脚本 | 用途 | 用法 |
 |------|------|------|
-| `gen_xmind.py` | 生成 XMind 文件 | `python3 .trae/scripts/gen_xmind.py <input.json> <output.xmind>` |
-| `parse_xmind.py` | 解析 XMind/JSON 为树形文本 | `python3 .trae/scripts/parse_xmind.py <input> [--output <out.txt>]` |
-| `parse_yapi.py` | 解析 YAPI 导出的 Markdown | `python3 .trae/scripts/parse_yapi.py <input.md> [--output <out.json>]` |
-| `parse_feishu.py` | 解析飞书导出的 CSV | `python3 .trae/scripts/parse_feishu.py <input.csv> [--group-by <字段>]` |
-| `extract_confluence_images.py` | 下载 Confluence 页面中的图片 | `python3 .trae/scripts/extract_confluence_images.py <pageId> [--output <dir>]` |
-| `ocr_images.py` | 对本地图片做 OCR 文字提取 | `python3 .trae/scripts/ocr_images.py <image_dir> [--lang chi_sim+eng]` |
+| `gen_xmind.py` | 生成 XMind 文件 | `python3 scripts/gen_xmind.py <input.json> <output.xmind>` |
+| `parse_xmind.py` | 解析 XMind/JSON 为树形文本 | `python3 scripts/parse_xmind.py <input> [--output <out.txt>]` |
+| `parse_yapi.py` | 解析 YAPI 导出的 Markdown | `python3 scripts/parse_yapi.py <input.md> [--output <out.json>]` |
+| `parse_feishu.py` | 解析飞书导出的 CSV | `python3 scripts/parse_feishu.py <input.csv> [--group-by <字段>]` |
+| `extract_confluence_images.py` | 下载 Confluence 页面中的图片 | `python3 scripts/extract_confluence_images.py <pageId> [--output <dir>]` |
+| `ocr_images.py` | 对本地图片做 OCR 文字提取 | `python3 scripts/ocr_images.py <image_dir> [--lang chi_sim+eng]` |
 
-## Trae 能力参考
+## 平台能力参考
 
-完整 Trae 官方文档知识库：`references/llm-wiki/trae-docs/README.md`
+> ⚠️ **当前运行平台是 Qoder，不是 Trae。**
+> `references/llm-wiki/trae-docs/` 是 Trae 时代的文档，**扩展机制部分对本项目已不适用**。
+> 查 rules / skills / subagent / hooks / commands / MCP 的正确格式，一律看
+> `.qoder/rules/qoder-platform.md`；需要原文时看 `references/qoder-docs/`。
 
-### 常用机制速查
+配置位置以 Qoder 为准：
 
-| 能力 | 配置位置 | 文档 |
-|------|---------|------|
-| 自定义 Agent | `.trae/agents/<name>/agent.md` | `trae-docs/02-agents.md` |
-| 技能 Skill | `.trae/skills/<name>/SKILL.md` | `trae-docs/03-skills.md` |
-| 规则 Rules | `.trae/rules/*.md` | `trae-docs/04-rules.md` |
-| Hook 自动化 | `.trae/hooks.json` + `.trae/hooks/*.sh` | `trae-docs/05-hooks.md` |
-| MCP Server | `.trae/mcp.json` | `trae-docs/06-mcp.md` |
-| 上下文引用 | `@agent` / `#file` / `#docs` | `trae-docs/07-context.md` |
+| 能力 | Qoder 配置位置 |
+|------|---------------|
+| 项目说明 | `AGENTS.md`（每次会话自动注入） |
+| 规则 Rules | `.qoder/rules/*.md`（frontmatter 用 `trigger:`） |
+| 技能 Skill | `.qoder/skills/<name>/SKILL.md` |
+| Subagent | `.qoder/agents/<name>.md`（**单文件**） |
+| 自定义命令 | `.qoder/commands/<name>.md` |
+| MCP Server | `.mcp.json` |
 
-### Hook 机制（自改进核心）
+### 踩坑记录落点
 
-- Stop 事件触发：自动检查踩坑记录 → `.trae/hooks/on-stop-check-lessons.sh`
-- SessionStart 事件触发：自动加载项目上下文 → `.trae/hooks/session-start.sh`
-- 配置文件：`.trae/hooks.json`
-- 规则文档：`.trae/steering/self-improvement.md`
+工具调用失败的处置流程见 `.qoder/rules/failure-protocol.md`。
+可复用的教训落 **Qoder 长期记忆**（`UpdateMemory`），不是只写 md。
+
+> 历史说明：`.trae/hooks/` 下的 Stop / SessionStart 脚本在 Qoder 下**不会被触发**，
+> 本项目当前没有配置任何 hook。因此「自动提醒记录踩坑」这件事目前**没有机制兜底**，
+> 完全依赖当场自觉执行 `failure-protocol.md`。
 
 ### XMind 文件结构说明
 
 XMind 文件本质是 zip 包，包含3个 JSON 文件：content.json + metadata.json + manifest.json。
-生成逻辑见 `.trae/scripts/gen_xmind.py`，解析逻辑见 `.trae/scripts/parse_xmind.py`。
+生成逻辑见 `scripts/gen_xmind.py`，解析逻辑见 `scripts/parse_xmind.py`。

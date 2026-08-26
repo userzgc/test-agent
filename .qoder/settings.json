@@ -1,0 +1,44 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "name": "inject-project-status",
+            "command": "bash \"${QODER_PROJECT_DIR:-$QODER_CWD}/.qoder/hooks/session-start.sh\"",
+            "timeout": 10,
+            "statusMessage": "读取项目现状"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "create_file|edit_file|search_replace|delete_file|Write|Edit|SearchReplace",
+        "hooks": [
+          {
+            "type": "command",
+            "name": "block-md-testcase",
+            "command": "bash \"${QODER_PROJECT_DIR:-$QODER_CWD}/.qoder/hooks/block-md-testcase.sh\"",
+            "timeout": 10,
+            "statusMessage": "校验用例产出格式"
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "name": "remind-record-failure",
+            "command": "bash \"${QODER_PROJECT_DIR:-$QODER_CWD}/.qoder/hooks/post-tool-failure.sh\"",
+            "timeout": 10,
+            "statusMessage": "工具失败处置提醒"
+          }
+        ]
+      }
+    ]
+  }
+}
