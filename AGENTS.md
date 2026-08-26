@@ -16,7 +16,7 @@
 | 资产 | 位置 | 内容 |
 |---|---|---|
 | 项目说明 | `AGENTS.md` | 本文件，每次会话自动注入 |
-| 规则 | `.qoder/rules/*.md` | 6 篇，见下方导航 |
+| 规则 | `.qoder/rules/*.md` | 7 篇，见下方导航 |
 | Skills | `.qoder/skills/<name>/SKILL.md` | 8 个 |
 | Subagent | `.qoder/agents/<name>.md` | 2 个（单文件） |
 | 自定义命令 | `.qoder/commands/<name>.md` | 2 个：`/qa-flow`、`/exec-plan` |
@@ -99,8 +99,9 @@ Qoder 记忆是本机文件不随 git 同步，团队要用的信息必须进仓
 ## 质量约束
 
 - 用例编写前必须先完成需求分析
-- 用例编写后必须经过评审才能标记为最终版
+- 用例编写后必须经过评审才能标记为最终版（`/qa-flow` Step 4 门禁）
 - 评审发现的问题必须修改后重新生成
+- 每个需求一份台账（`docs/requirements/<需求名>_台账.md`）：口述口径当场追加，新会话/接手人先读台账
 
 ## 团队使用约定
 
@@ -123,6 +124,7 @@ Qoder 记忆是本机文件不随 git 同步，团队要用的信息必须进仓
 | `output-schema.md` | **每次会话**（always_on），产出物格式与落位的唯一权威 |
 | `qoder-platform.md` | 需要新建/修改 Qoder 扩展资产时 |
 | `test-case-authoring.md` | 读写 `docs/test-cases/**` 时 |
+| `delegation-discipline.md` | 要通读大材料 / 派发 subagent 时（主会话上下文保护） |
 | `known-pitfalls.md` | 用 lark-cli / 生成 XMind / 排查 hooks / 抓取页面时（已验证踩坑库，团队共享） |
 | `failure-protocol.md` | 工具调用失败需要处置时 |
 | `memory-discipline.md` | 要判断某条信息该记哪里时 |

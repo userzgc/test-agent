@@ -6,7 +6,10 @@ description: 已实测验证的工程踩坑库（团队共享）。调用 lark-c
 # 已验证踩坑库
 
 来源：实际执行中踩过并验证过修复的坑。个人 Qoder 记忆不随 git 同步，团队要用的经验以本文件为准。
-新增踩坑：按「现象 / 根因 / 处置」三段追加，并同步落一条 `common_pitfalls_experience` 个人记忆。
+新增踩坑：按「现象 / 根因 / 处置」三段追加，**条目末尾署名 `——<踩坑人>，YYYY-MM-DD`**
+（踩坑人执行 `git config user.name` 获取，不要问用户），并同步落一条 `common_pitfalls_experience` 个人记忆。
+
+> 第 1–5 类为 2026-08 自个人记忆批量迁入，踩坑人均为 userzgc，此后新增逐条署名。
 
 ## 1. 飞书 lark-cli
 
@@ -30,7 +33,7 @@ description: 已实测验证的工程踩坑库（团队共享）。调用 lark-c
 
 ## 4. 扩展资产静默失效
 
-- 配置写得再对，**放错目录就永不加载且无任何报错**。本项目历经 Kiro → Trae → Qoder 三代，目录名和 frontmatter 全不兼容（Kiro `inclusion:` vs Qoder `trigger:`）。
+- 配置写得再对，**放错目录就永不加载且无任何报错**。本项目历经  Trae → Qoder ，目录名和 frontmatter 全不兼容（Kiro `inclusion:` vs Qoder `trigger:`）。
 - 排查「不生效」不要猜：先查目录信任，再跑 `/memory` `/skills` `/agents` `/hooks` `/mcp` 看实际加载结果。详见 `qoder-platform.md`。
 - 同一失效模式的变体：知识写进 `docs/*.md` 或 `references/**` = 没有任何机制保证被读到，等于没写。要被自动加载就挂 AGENTS.md / rules。
 

@@ -9,6 +9,13 @@
             "command": "bash \"${QODER_PROJECT_DIR:-$QODER_CWD}/.qoder/hooks/session-start.sh\"",
             "timeout": 10,
             "statusMessage": "读取项目现状"
+          },
+          {
+            "type": "command",
+            "name": "usage-log",
+            "command": "bash \"${QODER_PROJECT_DIR:-$QODER_CWD}/.qoder/hooks/session-log.sh\"",
+            "timeout": 10,
+            "statusMessage": "记录使用日志"
           }
         ]
       }

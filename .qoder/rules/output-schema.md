@@ -9,10 +9,11 @@ trigger: always_on
 | 产物 | 唯一格式 | 落位 | 禁止 |
 |---|---|---|---|
 | 需求分析 | `.md` | `docs/requirements/<需求名>_需求分析.md` | — |
-| 需求台账 | `.md`（**只追加，不改写历史**） | `docs/requirements/<需求名>_台账.md` | — |
+| 需求台账 | `.md`（**只追加，不改写历史**；模板见 `docs/requirements/_台账模板.md`） | `docs/requirements/<需求名>_台账.md` | — |
 | 测试用例 | `.xmind`（直构 JSON → `scripts/gen_xmind.py`） | `docs/test-cases/` | ❌ `.md` / `.txt` 用例（hook 强制拦截） |
 | 评审报告 | `.md`（文件名须含「评审」，走 hook 白名单） | `docs/test-cases/` | — |
 | 执行计划 / 测试报告 / 知识库 | `.md` | `docs/reports/` | — |
+| 使用日志 | `.csv`（SessionStart hook 自动追加，只追加不改历史行） | `docs/usage-log.csv` | ❌ 手工编造 / 删改历史行 |
 | 中间产物（解析文本、草稿、脚本临时输出） | 任意 | `/tmp/` | ❌ 任何 `docs/` 目录 |
 
 ## 硬规则
