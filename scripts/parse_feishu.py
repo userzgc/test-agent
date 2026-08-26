@@ -7,7 +7,7 @@
 解析飞书导出的 CSV，输出 JSON 数组（每行一个对象，key 取表头）。
 便于后续基于场景名/模块筛选接口清单。
 
-配合 docs/interface-matrix.csv 使用，
+配合 docs/api-reference/ssos-接口清单.csv 使用，
 该文件包含字段: 区域, 所属产品, 模块, 场景名称, 场景等级, 接口名称, 涉及接口
 """
 import csv

@@ -165,9 +165,7 @@ test-agent/
 │   ├── reports/             #   测试知识库 / 报告
 │   ├── api-reference/       #   接口清单 CSV
 │   ├── historical-cases/    #   历史用例归档
-│   ├── interface-matrix.csv
-│   ├── lessons-learned.md   #   历史台账（不自动加载）
-│   └── memory/              #   历史台账（不自动加载）
+│   └── lessons-learned.md   #   历史台账（不自动加载）
 ├── scripts/                 # 10 个工具脚本
 ├── config/credentials.json  # 凭据（已 gitignore）
 ├── references/              # 外部参考资料（只读）

@@ -84,7 +84,7 @@ Qoder 记忆是本机文件不随 git 同步，团队要用的信息必须进仓
 | 测试用例（`.xmind` 为主） | `docs/test-cases/` |
 | 需求分析（含 `<需求名>_设计图/` 图片目录） | `docs/requirements/` |
 | 测试报告 / 知识库 | `docs/reports/` |
-| 接口清单 | `docs/interface-matrix.csv`、`docs/api-reference/ssos-接口清单.csv` |
+| 接口清单 | `docs/api-reference/ssos-接口清单.csv` |
 | 历史案例 | `docs/historical-cases/` |
 | 历史台账（不自动加载，需要时手动读） | `docs/lessons-learned.md` |
 | 外部参考资料（只读，勿当作本项目产出） | `references/` |
